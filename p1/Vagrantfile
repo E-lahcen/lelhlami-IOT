@@ -1,0 +1,18 @@
+config.vm.define "Server" do |s|
+	s.vm.box = "generic/debian11"
+	s.vm.network "private_network", ip: '192.168.156.10'
+	s.vm.hostname = "lelhlamiS"
+end
+
+config.vm.define "ServerWorker" do |sw|
+	sw.vm.box = "generic/debian11"
+	sw.vm.network "private_network", ip: vagrant_config['server_ip']
+	sw.vm.hostname = "lelhlamiSW"
+end
+
+# Provider settings
+config.vm.provider "virtualbox" do |vb|
+  vb.memory = "1024"
+  vb.cpus = 1
+end
+
