@@ -1,0 +1,8 @@
+configs:
+  use: "default"
+  default:
+    master_ip: "192.168.56.110"
+    agent_ip: "192.168.56.111"
+    memory: 1024
+    cpus: 1
+    k3s_token: "token"
