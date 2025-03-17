@@ -1,0 +1,6 @@
+configs:
+  use: "default"
+  default:
+    master_ip: "192.168.56.110"
+    memory: 1024
+    cpus: 1

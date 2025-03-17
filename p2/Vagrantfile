@@ -1,0 +1,25 @@
+require 'yaml'
+current_dir    = File.dirname(File.expand_path(__FILE__))
+configs        = YAML.load_file("#{current_dir}/config.yaml")
+vagrant_config = configs['configs'][configs['configs']['use']]
+
+Vagrant.configure("2") do |config|
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = vagrant_config['memory']
+		vb.cpus = vagrant_config['cpus']
+	end
+	config.vm.define "lelhlamiS" do |master|
+		master.vm.box = "generic/debian11"
+		master.vm.network "private_network", ip:  vagrant_config['master_ip']
+		master.vm.hostname = "lelhlamiS"
+		master.vm.synced_folder "./setup", "/home/vagrant/setup"
+		master.vm.provision "shell", inline: <<-SHELL
+			curl -sfL https://get.k3s.io | sh -s - --node-ip="192.168.56.110"
+
+            kubectl apply -f ./setup/setup-webapp1.yaml
+            kubectl apply -f ./setup/setup-webapp2.yaml
+            kubectl apply -f ./setup/setup-webapp3.yaml
+            kubectl apply -f ./setup/setup-ingress.yaml
+		SHELL
+	end
+end
