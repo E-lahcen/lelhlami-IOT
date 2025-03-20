@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: webapps-ingress
 spec:
-  ingressClassName: nginx
   rules:
     - host: app1.com
       http:
@@ -35,7 +34,7 @@ spec:
                 name: webapp3-service
                 port:
                   number: 80
-    - host: ""
+    - host:
       http:
         paths:
           - path: /
