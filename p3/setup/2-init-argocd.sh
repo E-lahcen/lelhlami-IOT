@@ -37,6 +37,8 @@ fi
 # Port forward ArgoCD
 echo "${BLUE}Creating an Ingress for ArgoCD${NC}"
 
+sudo watch kubectl get pods -n dev
+
 # retrieving password
 password=$(sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 

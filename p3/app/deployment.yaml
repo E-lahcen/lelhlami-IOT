@@ -5,7 +5,7 @@ metadata:
   labels:
     app: iot-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: iot-app
@@ -29,6 +29,6 @@ spec:
     app: iot-app
   ports:
     - protocol: TCP
-      port: 80
+      port: 8888
       targetPort: 8888
   # type: LoadBalancer
