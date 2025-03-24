@@ -43,8 +43,8 @@ sudo kubectl config use-context lelhlami
 # Wait for argocd pods to start
 echo "waiting for argocd pods to start.."
 echo "${GREEN}This may take a while${NC}"
-sudo kubectl wait --for=condition=Ready pods --all --timeout=69420s -n argocd
-sudo kubectl wait --for=condition=Ready pods --all --timeout=69420s -n dev
+    sudo kubectl wait --for=condition=Ready pods --all --timeout=69420s -n argocd
+    sudo kubectl wait --for=condition=Ready pods --all --timeout=69420s -n dev
 
 # retrieving password
 password=$(sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)

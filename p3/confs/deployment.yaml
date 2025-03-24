@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: iot-app
-        image: wil42/playground:v2
+        image: wil42/playground:v1
         ports:
         - containerPort: 8888
 ---
@@ -31,58 +31,3 @@ spec:
     - protocol: TCP
       port: 8888
       targetPort: 8888
-  # type: LoadBalancer
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: iot-ingress
-  namespace: dev
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web 
-    ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  ingressClassName: traefik
-  rules:
-    - http:
-        paths:
-          - path: /app
-            pathType: Prefix
-            backend:
-              service:
-                name: iot-svc
-                port:
-                  number: 8888
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: iot-app
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: iot-app
-#   template:
-#     metadata:
-#       labels:
-#         app: iot-app
-#     spec:
-#       containers:
-#         - image: wil42/playground:v1
-#           name: iot-app
-#       ports:
-#         - containerPort: 8888
-#           name: http
-#           protocol: TCP
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: iot-svc
-# spec:
-#   ports:
-#   - port: 8888
-#     targetPort: 8888
-#   selector:
-#     app: iot-app
