@@ -38,7 +38,7 @@ fi
 # Port forward ArgoCD
 echo "${BLUE}Creating an Ingress for ArgoCD${NC}"
 
-# sudo watch kubectl get pods -n dev
+sudo kubectl config use-context lelhlami
 
 # Wait for argocd pods to start
 echo "waiting for argocd pods to start.."
@@ -57,3 +57,7 @@ echo "Login: admin, password: ${GREEN}$password"
 # sudo kubectl port-forward svc/argocd-server -n argocd 8080:80
 # sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" 2>&1 > /var/log/argocd-log &
 sudo kubectl port-forward svc/argocd-server -n argocd 8080:80 --address="0.0.0.0" > /dev/null 2>&1 &
+printf "${GREEN}[ARGOCD]${NC} - ArgoCD is running on http://localhost:8080\n"
+sleep 5
+sudo kubectl port-forward services/iot-svc 8888 -n dev --address="0.0.0.0" 2>&1 > /dev/null &
+printf "${GREEN}[DEV]${NC} - IoT service is running on http://localhost:8888\n"
