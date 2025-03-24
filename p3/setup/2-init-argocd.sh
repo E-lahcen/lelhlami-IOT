@@ -55,4 +55,5 @@ printf "${GREEN}[ARGOCD]${NC} - Retrieving credentials...\n"
 echo "login: admin, password: ${GREEN}$password"
 
 # sudo kubectl port-forward svc/argocd-server -n argocd 8080:80
-sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" 2>&1 > /var/log/argocd-log &
+# sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" 2>&1 > /var/log/argocd-log &
+sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" > /dev/null 2>&1 &
