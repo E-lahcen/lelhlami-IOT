@@ -13,6 +13,7 @@ BLUE='\033[0;34m'
 # sudo kubectl config use-context ${KUBEVIRT_CONTEXT}
 
 # Crete namespace DEV
+alias k=kubectl
 if [ -z "$(sudo kubectl get namespace dev)" ]; then
     echo "${BLUE}Creating namespace DEV${NC}"
     sudo kubectl create namespace dev
@@ -37,7 +38,13 @@ fi
 # Port forward ArgoCD
 echo "${BLUE}Creating an Ingress for ArgoCD${NC}"
 
-sudo watch kubectl get pods -n dev
+# sudo watch kubectl get pods -n dev
+
+# Wait for argocd pods to start
+echo "waiting for argocd pods to start.."
+echo "${GREEN}This may take a while${NC}"
+sudo kubectl wait --for=condition=Ready pods --all --timeout=69420s -n argocd
+sudo kubectl wait --for=condition=Ready pods --all --timeout=69420s -n dev
 
 # retrieving password
 password=$(sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
@@ -45,8 +52,7 @@ password=$(sudo kubectl -n argocd get secret argocd-initial-admin-secret -o json
 # print informations
 printf "${GREEN}[ARGOCD]${NC} - Retrieving credentials...\n"
 
-echo "login: admin, password: $password"
+echo "login: admin, password: ${GREEN}$password"
 
-sudo kubectl port-forward svc/argocd-server -n argocd 8080:80
-
-alias k=kubectl
+# sudo kubectl port-forward svc/argocd-server -n argocd 8080:80
+sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" 2>&1 > /var/log/argocd-log &
