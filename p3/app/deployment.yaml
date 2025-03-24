@@ -1,43 +1,9 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: iot-app
-#   labels:
-#     app: iot-app
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: iot-app
-#   template:
-#     metadata:
-#       labels:
-#         app: iot-app
-#     spec:
-#       containers:
-#       - name: iot-app
-#         image: wil42/playground:v1
-#         ports:
-#         - containerPort: 8888
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: iot-svc
-# spec:
-#   selector:
-#     app: iot-app
-#   ports:
-#     - protocol: TCP
-#       port: 8888
-#       targetPort: 8888
-#   # type: LoadBalancer
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: iot-app
+  labels:
+    app: iot-app
 spec:
   replicas: 1
   selector:
@@ -49,20 +15,54 @@ spec:
         app: iot-app
     spec:
       containers:
-        - image: wil42/playground:v1
-          name: iot-app
-      ports:
+      - name: iot-app
+        image: wil42/playground:v1
+        ports:
         - containerPort: 8888
-          name: http
-          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: iot-svc
 spec:
-  ports:
-  - port: 8888
-    targetPort: 8888
   selector:
     app: iot-app
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+  # type: LoadBalancer
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: iot-app
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: iot-app
+#   template:
+#     metadata:
+#       labels:
+#         app: iot-app
+#     spec:
+#       containers:
+#         - image: wil42/playground:v1
+#           name: iot-app
+#       ports:
+#         - containerPort: 8888
+#           name: http
+#           protocol: TCP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: iot-svc
+# spec:
+#   ports:
+#   - port: 8888
+#     targetPort: 8888
+#   selector:
+#     app: iot-app
