@@ -58,20 +58,20 @@ echo "Login: admin, password: ${GREEN}$password"
 # sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" 2>&1 > /var/log/argocd-log &
 sudo kubectl port-forward svc/argocd-server -n argocd 8080:80 --address="0.0.0.0" > /dev/null 2>&1 &
 printf "${GREEN}[ARGOCD]${NC} - ArgoCD is running on http://localhost:8080\n"
-sleep 5
 
+# sudo lsof -i:8888 -t | sudo xargs kill -9
 sudo kubectl port-forward services/iot-svc 8888 -n dev --address="0.0.0.0" 2>&1 > /dev/null &
 printf "${GREEN}[DEV]${NC} - IoT service is running on http://localhost:8888\n"
 
-while true; do
-    #   echo "waiting for dev pods to start..."
-      echo "${GREEN}waiting for dev pods to start...${NC}"
-      sudo kubectl wait --for=condition=Ready pods --all --timeout=6969s -n dev  2>&1 > /dev/null &
-    #   sudo kubectl port-forward services/victory-royale 8888 -n dev --address="0.0.0.0" 2>&1 > /var/log/dev-server.log 
-    # if port 8888 is already in use, remove the process
-    if [ -n "$(sudo lsof -i:8888 -t)" ]; then
-        sudo lsof -i:8888 -t | sudo xargs kill -9
-        sudo kubectl port-forward services/iot-svc 8888 -n dev --address="0.0.0.0" 2>&1 > /dev/null &
-    fi
-    sleep 10  # Add a small delay to prevent excessive CPU usage
-done &
+# while true; do
+#     #   echo "waiting for dev pods to start..."
+#       echo "${GREEN}waiting for dev pods to start...${NC}"
+#       sudo kubectl wait --for=condition=Ready pods --all --timeout=6969s -n dev  2>&1 > /dev/null &
+#     #   sudo kubectl port-forward services/victory-royale 8888 -n dev --address="0.0.0.0" 2>&1 > /var/log/dev-server.log 
+#     # if port 8888 is already in use, remove the process
+#     if [ -n "$(sudo lsof -i:8888 -t)" ]; then
+#         sudo lsof -i:8888 -t | sudo xargs kill -9
+#         sudo kubectl port-forward services/iot-svc 8888 -n dev --address="0.0.0.0" 2>&1 > /dev/null &
+#     fi
+#     sleep 10  # Add a small delay to prevent excessive CPU usage
+# done &
