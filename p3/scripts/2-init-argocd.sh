@@ -17,7 +17,7 @@ alias k=kubectl
 if [ -z "$(sudo kubectl get namespace dev)" ]; then
     echo "${BLUE}Creating namespace DEV${NC}"
     sudo kubectl create namespace dev
-    sudo kubectl apply -f app/deployment.yaml -n dev
+    sudo kubectl apply -f ../confs/deployment.yaml -n dev
 else
     echo "${GREEN}The namespace dev already exists${NC}"
 fi
@@ -25,15 +25,15 @@ fi
 if [ -z "$(sudo kubectl get namespace argocd)" ]; then
     echo "${BLUE}Creating namespace for ArgoCD${NC}"
     sudo kubectl create namespace argocd
-    sudo kubectl create -n argocd -f configuration/install.yaml
-    sudo kubectl apply -f configuration/app.yaml -n argocd
+    sudo kubectl create -n argocd -f ../confs/install.yaml
+    sudo kubectl apply -f ../confs/app.yaml -n argocd
 else
     echo "${GREEN}The namespace argocd already exists${NC}"
 fi
 
 # Desc: Create an Ingress for ArgoCD
 # echo "${BLUE}Creating an Ingress for ArgoCD${NC}"
-# sudo kubectl apply -f configuration/ingress.yaml -n argocd
+# sudo kubectl apply -f ../confs/ingress.yaml -n argocd
 
 # Port forward ArgoCD
 echo "${BLUE}Creating an Ingress for ArgoCD${NC}"
