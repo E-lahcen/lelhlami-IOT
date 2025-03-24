@@ -12,8 +12,8 @@ BLUE='\033[0;34m'
 # export KUBEVIRT_CONTEXT="lelhlami"
 # sudo kubectl config use-context ${KUBEVIRT_CONTEXT}
 
-# Crete namespace DEV
 alias k=kubectl
+# Crete namespace DEV
 if [ -z "$(sudo kubectl get namespace dev)" ]; then
     echo "${BLUE}Creating namespace DEV${NC}"
     sudo kubectl create namespace dev
@@ -52,8 +52,8 @@ password=$(sudo kubectl -n argocd get secret argocd-initial-admin-secret -o json
 # print informations
 printf "${GREEN}[ARGOCD]${NC} - Retrieving credentials...\n"
 
-echo "login: admin, password: ${GREEN}$password"
+echo "Login: admin, password: ${GREEN}$password"
 
 # sudo kubectl port-forward svc/argocd-server -n argocd 8080:80
 # sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" 2>&1 > /var/log/argocd-log &
-sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 --address="0.0.0.0" > /dev/null 2>&1 &
+sudo kubectl port-forward svc/argocd-server -n argocd 8080:80 --address="0.0.0.0" > /dev/null 2>&1 &

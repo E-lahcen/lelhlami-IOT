@@ -59,7 +59,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: iot-app
+  name: iot-svc
 spec:
   ports:
   - port: 8888
