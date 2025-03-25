@@ -12,7 +12,7 @@ all:
 	sh 2-init-argocd.sh
 fclean:
 	@echo "${RED}==================Clean Environment===============${NC}"
-	@sudo k3d cluster delete lelhlami
+	@k3d cluster delete lelhlami
 	# @rm kubectl.sha256
 	# @rm install.yaml*
 setup-1:
