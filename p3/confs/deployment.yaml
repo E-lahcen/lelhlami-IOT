@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: iot-app
-        image: wil42/playground:v1
+        image: wil42/playground:v2
         ports:
         - containerPort: 8888
 ---
@@ -42,8 +42,8 @@ spec:
   - host: iot-app.
     http:
       paths:
+      - path: /app
         pathType: Prefix
-        path: /app
         backend:
           service:
             name: iot-svc
