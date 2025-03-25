@@ -59,7 +59,7 @@ sudo kubectl port-forward svc/argocd-server -n argocd 8080:80 --address="0.0.0.0
 printf "${GREEN}[ARGOCD]${NC} - ArgoCD is running on http://localhost:8080\n"
 
 # sudo lsof -i:8888 -t | sudo xargs kill -9
-sudo kubectl port-forward svc/iot-svc -n dev 8888:8888 --address="0.0.0.0" > /dev/null 2>&1 &
+sudo kubectl port-forward svc/iot-svc -n dev 8888 --address="0.0.0.0" > /dev/null 2>&1 &
 printf "${GREEN}[DEV]${NC} - IoT service is running on http://localhost:8888\n"
 
 # while true; do
