@@ -38,8 +38,6 @@ fi
 # Port forward ArgoCD
 echo "${BLUE}Creating an Ingress for ArgoCD${NC}"
 
-sudo kubectl config use-context lelhlami
-
 # Wait for argocd pods to start
 echo "waiting for argocd pods to start.."
 echo "${GREEN}This may take a while${NC}"
