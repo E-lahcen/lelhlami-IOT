@@ -36,10 +36,10 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: iot-ingress
+  name: iot_ingress
+  namespace: dev
 spec:
   rules:
-  - host: iot-app.
     http:
       paths:
       - path: /app
